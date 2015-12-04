@@ -4,6 +4,7 @@ import com.phantom.entity.Categories;
 import com.phantom.model.CategoriesDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 /**
  * Created by vishal on 14/11/15.
  */
+
+@Component
 public class CategoriesDaoImpl  implements CategoriesDao {
 
     private JdbcTemplate jdbcTemplate;

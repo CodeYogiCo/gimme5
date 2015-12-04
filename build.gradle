@@ -30,7 +30,6 @@ dependencies {
         exclude module: "spring-boot-starter-tomcat"
     }
 
-    compile ('org.springframework.security:spring-security-config:3.2.0.RELEASE')
     compile("org.springframework.boot:spring-boot-starter-jetty")
     // end::jetty[]
     // tag::actuator[]

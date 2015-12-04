@@ -14,5 +14,5 @@ public class SolrTest {
     public static void main(String[] args) {
         SolrServer server = new HttpSolrServer("http://localhost:8983/solr/gimmeFiveCollection2");
 
-        server.query(SolrParams.toSolrParams(new NamedList("location_name" ,"" )), SolrRequest.METHOD.GET)
+        //server.query(SolrParams.toSolrParams(new NamedList("location_name" ,"" )), SolrRequest.METHOD.GET)
     }}
