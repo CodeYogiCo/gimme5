@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'gimmeFive'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    // tag::jetty[]
+    compile("org.springframework.boot:spring-boot-starter-web") {
+        exclude module: "spring-boot-starter-tomcat"
+    }
+
+    compile ('org.springframework.security:spring-security-config:3.2.0.RELEASE')
+    compile("org.springframework.boot:spring-boot-starter-jetty")
+    // end::jetty[]
+    // tag::actuator[]
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile('org.springframework:spring-context-support:3.2.0.RELEASE')
+    compile('org.apache.tomcat:tomcat-jdbc:8.0.28')
+    compile('mysql:mysql-connector-java:5.1.36')
+    compile('org.springframework:spring-jdbc:4.1.6.RELEASE')
+    compile ('javax.ws.rs:javax.ws.rs-api:2.0')
+    compile ('org.apache.solr:solr-solrj:4.1.0')
+
+    // end::actuator[]
+    testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+
+version = '1.0'
+
+mainClassName = 'com.phantom.core.GimmeFiveApp'
