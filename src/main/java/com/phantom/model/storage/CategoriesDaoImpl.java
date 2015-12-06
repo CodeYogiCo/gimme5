@@ -16,13 +16,15 @@ import java.util.List;
 @Component
 public class CategoriesDaoImpl  implements CategoriesDao {
 
-    private JdbcTemplate jdbcTemplate;
-
 
     @Autowired
-    private void setDataSource(DataSource dataSource){
-        this.jdbcTemplate= new JdbcTemplate(dataSource);
-    }
+    private JdbcTemplate jdbcTemplate;
+
+//
+//    @Autowired
+//    private void setDataSource(DataSource dataSource){
+//        this.jdbcTemplate= new JdbcTemplate(dataSource);
+//    }
 
     @Override
     public void addNewCategory(Categories category) {

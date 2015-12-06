@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.3.0.RELEASE")
     }
 }
 
@@ -11,6 +11,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'application'
 
 jar {
     baseName = 'gimmeFive'
@@ -29,8 +30,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web") {
         exclude module: "spring-boot-starter-tomcat"
     }
-
+    compile('org.springframework.boot:spring-boot-starter-security:1.3.0.RELEASE')
+    compile('org.springframework.security.oauth:spring-security-oauth2:2.0.8.RELEASE')
     compile("org.springframework.boot:spring-boot-starter-jetty")
+    compile('net.spy:spymemcached:2.12.0')
     // end::jetty[]
     // tag::actuator[]
     compile("org.springframework.boot:spring-boot-starter-actuator")
