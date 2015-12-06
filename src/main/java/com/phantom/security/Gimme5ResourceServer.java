@@ -10,8 +10,10 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 
 @Configuration
 @EnableResourceServer
-public class SellerPushResourceServer extends ResourceServerConfigurerAdapter{
-	final String RESOURCE_ID = "notification_resource";
+public class Gimme5ResourceServer extends ResourceServerConfigurerAdapter{
+
+
+	final String RESOURCE_ID = "gimme5_resource";
 	
     //BearerNullFilter bearerNullFilter= new BearerNullFilter();
 	

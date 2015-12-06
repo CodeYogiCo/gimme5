@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 
 @Configuration
 @EnableAuthorizationServer
-public class SellerPushAuthorizationServer extends AuthorizationServerConfigurerAdapter{
+public class Gimme5AuthorizationServer extends AuthorizationServerConfigurerAdapter{
 	final String RESOURCE_ID = "notification_resource";
 
 
