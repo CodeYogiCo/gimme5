@@ -9,15 +9,15 @@ public class ActivitiesDocument {
     public ActivitiesDocument() {
     }
 
-    public String id;
+    private String id;
 
-    public String category_name;
+    private String category_name;
 
-    public String entry_name;
+    private String entry_name;
 
-    public String location_name;
+    private String location_name;
 
-    public String speciality_name;
+    private String speciality_name;
 
     public ActivitiesDocument(String id, String category_name, String entry_name, String location_name, String speciality_name) {
         this.id = id;
@@ -66,5 +66,17 @@ public class ActivitiesDocument {
     @Field("speciality_name")
     public void setSpeciality_name(String speciality_name) {
         this.speciality_name = speciality_name;
+    }
+
+
+    @Override
+    public String toString() {
+        return "ActivitiesDocument{" +
+                "id='" + id + '\'' +
+                ", category_name='" + category_name + '\'' +
+                ", entry_name='" + entry_name + '\'' +
+                ", location_name='" + location_name + '\'' +
+                ", speciality_name='" + speciality_name + '\'' +
+                '}';
     }
 }
