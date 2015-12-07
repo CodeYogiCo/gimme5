@@ -16,14 +16,15 @@ import java.util.List;
 @Component
 public class RestaurantDaoImpl implements RestaurantDao {
 
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
 
-    @Autowired
-    private void setDataSource(DataSource dataSource){
-        this.jdbcTemplate= new JdbcTemplate(dataSource);
-
-    }
+//    @Autowired
+//    private void setDataSource(DataSource dataSource){
+//        this.jdbcTemplate= new JdbcTemplate(dataSource);
+//
+//    }
     @Override
     public String addRestaurants(Restaurants restaurants) {
         StringBuilder status = new StringBuilder();

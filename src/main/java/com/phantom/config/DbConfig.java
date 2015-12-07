@@ -1,6 +1,7 @@
 package com.phantom.config;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,19 +25,13 @@ public class DbConfig {
 private Environment env;
 
 
-    @Value("${mysql.insertstoredProcName:wth_insert}")
-    private String insertstoredProcName;
-
-
-    @Value("${mysql.countStoredProcName:wth_count}")
-    private String countStoredProcName;
 
     @Bean
-    public javax.sql.DataSource dataSource(){
+    public javax.sql.DataSource gimme5dataSource(){
         DataSource dataSource= new DataSource();
         dataSource.setDriverClassName(env.getProperty("mysql.driver", "com.mysql.jdbc.Driver"));
         dataSource.setUrl(env.getProperty("mysql.jdbcurl",
-                "jdbc:mysql://127.0.0.1:3306/rating_schema?autoReconnect=true"));
+                "jdbc:mysql://127.0.0.1:3306/gimme5?autoReconnect=true"));
         dataSource.setUsername(env.getProperty("mysql.user", "root"));
         dataSource.setPassword(env.getProperty("mysql.password", "admin"));
         return dataSource;
@@ -45,27 +40,31 @@ private Environment env;
     @Bean
     public JdbcTemplate setJdbcTemplate(){
         JdbcTemplate jdbcTemplate= new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
+        jdbcTemplate.setDataSource(gimme5dataSource());
         return jdbcTemplate;
     }
 
-    @Bean(name="insert")
-    public SimpleJdbcCall setJdbcSimpleCallForInsert(){
-        SimpleJdbcCall simpleJdbc= new SimpleJdbcCall(dataSource()).
-                withProcedureName(insertstoredProcName);
-        return simpleJdbc;
-    }
+//
+//    @Bean
+//    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(){
+//        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
+//        return namedParameterJdbcTemplate;
+//    }
 
-    @Bean(name="count")
-    public SimpleJdbcCall setJdbcSimpleCallForCount(){
-        SimpleJdbcCall simpleJdbc= new SimpleJdbcCall(dataSource()).
-                withProcedureName(countStoredProcName);
-        return simpleJdbc;
-    }
 
-    @Bean
-    public NamedParameterJdbcTemplate getNamedParameterJdbcTemplate(){
-        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource());
-        return namedParameterJdbcTemplate;
-    }
+//    @Bean
+//    public javax.sql.DataSource ouathdataSource(){
+//        DataSource dataSource= new DataSource();
+//        dataSource.setDriverClassName(env.getProperty("mysql.driver", "com.mysql.jdbc.Driver"));
+//        dataSource.setUrl(env.getProperty("mysql.jdbcurl.oauth",
+//                "jdbc:mysql://127.0.0.1:3306/gimme5_oauth?autoReconnect=true"));
+//        dataSource.setUsername(env.getProperty("mysql.user", "root"));
+//        dataSource.setPassword(env.getProperty("mysql.password", "admin"));
+//        return dataSource;
+//    }
+
+
+
+
+
 }
