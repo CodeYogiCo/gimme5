@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 @Configuration
 @EnableAuthorizationServer
 public class Gimme5AuthorizationServer extends AuthorizationServerConfigurerAdapter{
-	final String RESOURCE_ID = "notification_resource";
+	final String RESOURCE_ID = "gimme5_resource";
 
 
 

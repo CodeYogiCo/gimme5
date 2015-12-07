@@ -40,7 +40,7 @@
         @RequestMapping(value="/restaurant",method=RequestMethod.GET,headers="content-type=application/vnd.v0+json"
                 ,produces = "application/json")
         public List<Restaurants> getAllRestaurants(@RequestBody Restaurants restaurants){
-            
+
                 return restaurantDao.getAllRestaurants();
 
         }
