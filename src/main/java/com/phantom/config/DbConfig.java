@@ -52,19 +52,5 @@ private Environment env;
 //    }
 
 
-//    @Bean
-//    public javax.sql.DataSource ouathdataSource(){
-//        DataSource dataSource= new DataSource();
-//        dataSource.setDriverClassName(env.getProperty("mysql.driver", "com.mysql.jdbc.Driver"));
-//        dataSource.setUrl(env.getProperty("mysql.jdbcurl.oauth",
-//                "jdbc:mysql://127.0.0.1:3306/gimme5_oauth?autoReconnect=true"));
-//        dataSource.setUsername(env.getProperty("mysql.user", "root"));
-//        dataSource.setPassword(env.getProperty("mysql.password", "admin"));
-//        return dataSource;
-//    }
-
-
-
-
 
 }

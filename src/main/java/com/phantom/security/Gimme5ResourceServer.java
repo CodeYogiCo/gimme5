@@ -15,8 +15,6 @@ public class Gimme5ResourceServer extends ResourceServerConfigurerAdapter{
 
 	final String RESOURCE_ID = "gimme5_resource";
 	
-    //BearerNullFilter bearerNullFilter= new BearerNullFilter();
-	
 	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
