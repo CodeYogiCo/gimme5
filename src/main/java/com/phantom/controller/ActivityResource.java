@@ -23,10 +23,9 @@ public class ActivityResource {
 
 
     @RequestMapping(value="/search" ,method= RequestMethod.GET, produces={"application/json"})
-    public List<ActivitiesDocument> searchReasults(@RequestParam(value = "category") String category) {
-        if(category.isEmpty()){
-            List<ActivitiesDocument> activitiesDocumentList = activitiesDocumentDao.fetchAllDocuments();
-            return activitiesDocumentList;
+    public List<ActivitiesDocument> searchReasults(@RequestParam(value = "category",required = false) String category) {
+        if(null==category){
+            return activitiesDocumentDao.fetchAllDocuments();
         }else{
             return activitiesDocumentDao.fetchActivitiesBasedOnCategory(category);
         }

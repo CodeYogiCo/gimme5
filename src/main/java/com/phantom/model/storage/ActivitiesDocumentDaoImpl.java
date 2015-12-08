@@ -29,6 +29,7 @@ public class ActivitiesDocumentDaoImpl implements ActivitiesDocumentDao {
 
     @Override
     public List<ActivitiesDocument> fetchAllDocuments() {
+        System.out.println("Inside fetchDoscuments");
         SolrQuery query = new SolrQuery();
         query.setQuery("*:*");
         QueryResponse response = null;
@@ -39,22 +40,20 @@ public class ActivitiesDocumentDaoImpl implements ActivitiesDocumentDao {
         }
         List<ActivitiesDocument> activitiesDocumentList  = new ArrayList<>();
         SolrDocumentList docList = (SolrDocumentList) response.getResults();
-        System.out.println(docList);
-        SolrDocument doc = null;
 
         for (int i = 0; i < docList.size(); i++) {
 
             ActivitiesDocument activitiesDocument = new ActivitiesDocument();
 
-            activitiesDocument.setId(doc.getFieldValue("id").toString());
+            activitiesDocument.setId(docList.get(i).getFieldValue("id").toString());
 
-            activitiesDocument.setEntry_name(doc.getFieldValue("entry_name").toString());
+            activitiesDocument.setEntry_name(docList.get(i).getFieldValue("entry_name").toString());
 
-            activitiesDocument.setCategory_name(doc.getFieldValue("category_name").toString());
+            activitiesDocument.setCategory_name(docList.get(i).getFieldValue("category_name").toString());
 
-            activitiesDocument.setLocation_name(doc.getFieldValue("location_name").toString());
+            activitiesDocument.setLocation_name(docList.get(i).getFieldValue("location_name").toString());
 
-            activitiesDocument.setSpeciality_name(doc.getFieldValue("speciality_name").toString());
+            activitiesDocument.setSpeciality_name(docList.get(i).getFieldValue("speciality_name").toString());
 
             activitiesDocumentList.add(activitiesDocument);
 
@@ -74,8 +73,7 @@ public class ActivitiesDocumentDaoImpl implements ActivitiesDocumentDao {
         }
         List<ActivitiesDocument> activitiesDocumentList  = new ArrayList<>();
         SolrDocumentList docList = (SolrDocumentList) response.getResults();
-        System.out.println(docList);
-//        SolrDocument doc = null;
+
 
         for (int i = 0; i < docList.size(); i++) {
 
@@ -114,21 +112,21 @@ public class ActivitiesDocumentDaoImpl implements ActivitiesDocumentDao {
         }
         List<ActivitiesDocument> activitiesDocumentList  = new ArrayList<>();
         SolrDocumentList docList = (SolrDocumentList) response.getResults();
-        SolrDocument doc = null;
+
 
         for (int i = 0; i < docList.size(); i++) {
 
             ActivitiesDocument newactivitiesDocument = new ActivitiesDocument();
 
-            newactivitiesDocument.setId(doc.getFieldValue("id").toString());
+            newactivitiesDocument.setId(docList.get(i).getFieldValue("id").toString());
 
-            newactivitiesDocument.setEntry_name(doc.getFieldValue("entry_name").toString());
+            newactivitiesDocument.setEntry_name(docList.get(i).getFieldValue("entry_name").toString());
 
-            newactivitiesDocument.setCategory_name(doc.getFieldValue("category_name").toString());
+            newactivitiesDocument.setCategory_name(docList.get(i).getFieldValue("category_name").toString());
 
-            newactivitiesDocument.setLocation_name(doc.getFieldValue("location_name").toString());
+            newactivitiesDocument.setLocation_name(docList.get(i).getFieldValue("location_name").toString());
 
-            newactivitiesDocument.setSpeciality_name(doc.getFieldValue("speciality_name").toString());
+            newactivitiesDocument.setSpeciality_name(docList.get(i).getFieldValue("speciality_name").toString());
 
             activitiesDocumentList.add(newactivitiesDocument);
 
