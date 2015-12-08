@@ -4,12 +4,13 @@
     import com.phantom.model.RestaurantDao;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.RequestBody;
-    import org.springframework.web.bind.annotation.RequestMapping;
-    import org.springframework.web.bind.annotation.RequestMethod;
-    import org.springframework.web.bind.annotation.RestController;
+    import org.springframework.web.bind.annotation.*;
 
+    import javax.ws.rs.DefaultValue;
+    import javax.ws.rs.QueryParam;
+    import java.util.HashMap;
     import java.util.List;
+    import java.util.Map;
 
     /**
      * Created by vishal on 21/11/15.
@@ -23,7 +24,7 @@
         private RestaurantDao restaurantDao;
 
 
-        @RequestMapping(value="/restaurant",method=RequestMethod.POST,headers="content-type=application/vnd.v0+json"
+        @RequestMapping(value="/restaurants/restraurant",method=RequestMethod.POST,headers="content-type=application/vnd.v0+json"
         ,produces = "application/json")
             public ResponseEntity.BodyBuilder addRestaurants(@RequestBody Restaurants restaurants){
             try{
@@ -37,12 +38,33 @@
 
             }
 
-        @RequestMapping(value="/restaurant",method=RequestMethod.GET,headers="content-type=application/vnd.v0+json"
+        @RequestMapping(value="/restraurants",method=RequestMethod.GET,headers="content-type=application/vnd.v0+json"
                 ,produces = "application/json")
-        public List<Restaurants> getAllRestaurants(@RequestBody Restaurants restaurants){
+        public List<Restaurants> getAllRestaurants(){
 
                 return restaurantDao.getAllRestaurants();
 
+        }
+
+        @RequestMapping(value="/restaurants{location}" ,method= RequestMethod.GET)
+        public List<Restaurants> getReestraurantsByLocation(@DefaultValue("") @QueryParam(value="location") String location){
+            return restaurantDao.getRestaurantsByLocation(location);
+
+        }
+
+        @RequestMapping(value="/restaurants{valueforMoney},{food},{service},{ambience},{quality}" ,method= RequestMethod.GET)
+        public List<Restaurants> getRestraurantsByAttributes(@DefaultValue("0") @QueryParam(value="valueforMoney") String valueForMoney,
+                                                             @DefaultValue("0") @QueryParam("food") String food,
+                                                             @DefaultValue("0") @QueryParam("service")String service,
+                                                             @DefaultValue("0") @QueryParam("ambience")String ambience,
+                                                             @DefaultValue("0") @QueryParam("quality")String quality){
+            Map<String,Float>  gimmeFiveRating = new HashMap<>();
+            gimmeFiveRating.put("valueForMoney", Float.parseFloat(valueForMoney));
+            gimmeFiveRating.put("food", Float.parseFloat(food));
+            gimmeFiveRating.put("service", Float.parseFloat(service));
+            gimmeFiveRating.put("ambience", Float.parseFloat(ambience));
+            gimmeFiveRating.put("quality", Float.parseFloat(quality));
+            return restaurantDao.getRestaurantsByAttributes(gimmeFiveRating);
         }
 
 

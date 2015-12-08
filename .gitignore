@@ -1,11 +1,13 @@
 .gradle
 build/
 *.iml
+gimme5.iml
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+
 
 *.class
 
@@ -28,7 +30,6 @@ hs_err_pid*
 *.dex
 
 # Java class files
-*.class
 
 # generated files
 bin/
@@ -45,13 +46,6 @@ local.properties
 proguard/
 
 # Intellij project files
-*.iml
-*.ipr
-*.iws
+gimme5.iml
+!gradle-wrapper.jar
 .idea/
-
-#Gradle
-.gradletasknamecache
-.gradle/
-build/
-bin/

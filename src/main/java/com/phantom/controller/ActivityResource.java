@@ -5,8 +5,10 @@ import com.phantom.model.ActivitiesDocumentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.QueryParam;
 import java.util.List;
 
 /**
@@ -20,15 +22,14 @@ public class ActivityResource {
     private ActivitiesDocumentDao activitiesDocumentDao;
 
 
-    @RequestMapping(value="/user/searchCategory" ,method= RequestMethod.GET, produces={"application/json"})
-    public List<ActivitiesDocument> searchReasults(String field) {
-        if(field.isEmpty()){
+    @RequestMapping(value="/search" ,method= RequestMethod.GET, produces={"application/json"})
+    public List<ActivitiesDocument> searchReasults(@QueryParam(value = "category") String category) {
+        if(category.isEmpty()){
             List<ActivitiesDocument> activitiesDocumentList = activitiesDocumentDao.fetchAllDocuments();
             return activitiesDocumentList;
         }else{
-            return activitiesDocumentDao.fetchActivitiesBasedOnCategory(field);
+            return activitiesDocumentDao.fetchActivitiesBasedOnCategory(category);
         }
-
     }
 
 }
