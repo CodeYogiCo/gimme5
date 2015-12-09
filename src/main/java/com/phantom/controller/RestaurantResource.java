@@ -9,6 +9,7 @@
     import javax.ws.rs.DefaultValue;
     import javax.ws.rs.QueryParam;
     import javax.ws.rs.core.Response;
+    import java.util.ArrayList;
     import java.util.HashMap;
     import java.util.List;
     import java.util.Map;
@@ -41,17 +42,27 @@
 
         @RequestMapping(value="/restraurants",method=RequestMethod.GET,headers="content-type=application/vnd.v0+json"
                 ,produces = "application/json")
-        public List<Restaurants> getAllRestaurants(){
-
-                return restaurantDao.getAllRestaurants();
+        public List<Restaurants> getAllRestaurants(@RequestParam(value="location",required= false) String location)
+//                                                   @DefaultValue("0") @RequestParam(value="valueForMoney") String valueForMoney,
+//                                                   @DefaultValue("0") @RequestParam(value="food") String food,
+//                                                   @DefaultValue("0") @RequestParam(value="service")String service,
+//                                                   @DefaultValue("0") @RequestParam(value="ambience") String ambience,
+//                                                   @DefaultValue("0") @RequestParam(value="quality")String quality)
+        {
+            List<Restaurants> listofRestaurants= new ArrayList<Restaurants>();
+            if(null==location)
+                listofRestaurants= restaurantDao.getAllRestaurants();
+            else
+               listofRestaurants=restaurantDao.getRestaurantsByLocation(location);
+            return listofRestaurants;
 
         }
 
-        @RequestMapping(value="/restaurants{location}" ,method= RequestMethod.GET)
-        public List<Restaurants> getReestraurantsByLocation(@DefaultValue("") @QueryParam(value="location") String location){
-            return restaurantDao.getRestaurantsByLocation(location);
-
-        }
+//        @RequestMapping(value="/restaurants{location}" ,method= RequestMethod.GET)
+//        public List<Restaurants> getReestraurantsByLocation(@DefaultValue("") @QueryParam(value="location") String location){
+//            return restaurantDao.getRestaurantsByLocation(location);
+//
+//        }
 
         @RequestMapping(value="/restaurants{valueformoney},{food},{service},{ambience},{quality}" ,method= RequestMethod.GET)
         public List<Restaurants> getRestraurantsByAttributes(@DefaultValue("0") @QueryParam(value="valueformoney") String valueForMoney,

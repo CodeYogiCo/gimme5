@@ -28,7 +28,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public String addRestaurants(Restaurants restaurants) {
         StringBuilder status = new StringBuilder();
 
-        String query = "INSERT INTO gimmeFive.restraurants(restraurant_name,user_email,speciality,value_for_money,food,service,ambience,quality," +
+        String query = "INSERT INTO restraurants(restraurant_name,user_email,speciality,value_for_money,food,service,ambience,quality," +
                 "user_exp,user_review) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             jdbcTemplate.update(query, new Object[]{restaurants.getName(), restaurants.getUser_email() ,restaurants.getSpeciality(), restaurants.getValueForMoney_Rating(), restaurants.getFood_Rating(),
@@ -47,7 +47,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public String updateRestaurantReview(Restaurants restaurant) {
         StringBuilder status = new StringBuilder();
 
-        String query = "UPDATE gimmeFive.restraurant SET user_review="+restaurant.getUserReview()+
+        String query = "UPDATE restraurant SET user_review="+restaurant.getUserReview()+
                 " WHERE restraurant_name="+ restaurant.getName() +AND_CHAR+"location="+restaurant.getLocation()+
                   AND_CHAR+"user_email="+ restaurant.getUser_email();
         try {
@@ -102,8 +102,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     @Override
     public String addNewReviewForRestaurant(Restaurants restaurant) {
         StringBuilder status = new StringBuilder();
-
-        String query = "UPDATE gimmeFive.restraurant SET user_review="+restaurant.getUserReview() +SPACE_CHAR+
+        String query = "UPDATE restraurant SET user_review="+restaurant.getUserReview() +SPACE_CHAR+
                 " WHERE restraurant_name="+ restaurant.getName() +AND_CHAR+"restraurant_location="+restaurant.getLocation()+AND_CHAR+
                  "user_email="+ restaurant.getUser_email();
 
@@ -124,7 +123,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public List<Restaurants> getAllRestaurants() {
         StringBuilder status = new StringBuilder();
 
-        String query = "SELECT restraurant_name,restraurant_location from gimmeFive.restraurants";
+        String query = "SELECT * from restraurant";
         List<Restaurants> restaurantsList = jdbcTemplate.query(query,
                 new BeanPropertyRowMapper<Restaurants>(Restaurants.class));
         return restaurantsList;
@@ -133,10 +132,9 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public List<Restaurants> getRestaurantsByLocation(String location) {
-        String query = "SELECT restraurant_name,restraurant_location from gimmeFive.restraurant " +
-                "WHERE restraurant_location="+location;
+        String query = "SELECT * from restraurant WHERE restraurant_location =?";
         //Pending is the logic for rating
-        List<Restaurants> restaurantsList = jdbcTemplate.query(query,
+        List<Restaurants> restaurantsList = jdbcTemplate.query(query,new Object[]{location},
                 new BeanPropertyRowMapper<Restaurants>(Restaurants.class));
         return restaurantsList;
     }
