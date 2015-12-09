@@ -31,7 +31,7 @@ private Environment env;
         DataSource dataSource= new DataSource();
         dataSource.setDriverClassName(env.getProperty("mysql.driver", "com.mysql.jdbc.Driver"));
         dataSource.setUrl(env.getProperty("mysql.jdbcurl",
-                "jdbc:mysql://127.0.0.1:3306/gimme5?autoReconnect=true"));
+                "jdbc:mysql://127.0.0.1:3306/gimmeFive?autoReconnect=true"));
         dataSource.setUsername(env.getProperty("mysql.user", "root"));
         dataSource.setPassword(env.getProperty("mysql.password", "admin"));
         return dataSource;
