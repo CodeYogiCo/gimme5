@@ -47,7 +47,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public String updateRestaurantReview(Restaurants restaurant) {
         StringBuilder status = new StringBuilder();
 
-        String query = "UPDATE gimmeFive.restraurants SET user_review="+restaurant.getUserReview()+
+        String query = "UPDATE gimmeFive.restraurant SET user_review="+restaurant.getUserReview()+
                 " WHERE restraurant_name="+ restaurant.getName() +AND_CHAR+"location="+restaurant.getLocation()+
                   AND_CHAR+"user_email="+ restaurant.getUser_email();
         try {
@@ -65,15 +65,32 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public String updateRestaurantRatings(Restaurants restaurant) {
         StringBuilder status = new StringBuilder();
 
-        String query = "UPDATE gimmeFive.restraurants SET value_for_money "+restaurant.getValueForMoney_Rating()+SPACE_CHAR+
-        ",food="+restaurant.getFood_Rating()+SPACE_CHAR+
-        ",service="+restaurant.getService_Rating()+" ,ambience="+restaurant.getAmbience_Rating()+SPACE_CHAR+
-        ",quality="+restaurant.getQuality_Rating()+SPACE_CHAR+ ",user_exp="+restaurant.getUserExp()+"\n"+
-        "WHERE restraurant_name="+ restaurant.getName()+AND_CHAR+"restraurant_location="+restaurant.getLocation()+
-         AND_CHAR+"user_email="+ restaurant.getUser_email();
+        StringBuilder query = new StringBuilder("UPDATE gimmeFive.restraurant SET ");
+         if(restaurant.getValueForMoney_Rating() >0) {
+           query.append("value_for_money " + restaurant.getValueForMoney_Rating() + SPACE_CHAR );
+         }
+        if(restaurant.getFood_Rating() >0) {
+            query.append(",food=" + restaurant.getFood_Rating() + SPACE_CHAR);
+        }
+        if(restaurant.getService_Rating()>0) {
+            query.append( ",service=" + restaurant.getService_Rating() +SPACE_CHAR);
+
+        }
+        if(restaurant.getAmbience_Rating()>0){
+            query.append(",ambience=" + restaurant.getAmbience_Rating() + SPACE_CHAR );
+        }
+        if(restaurant.getQuality_Rating()>0) {
+            query.append(",quality=" + restaurant.getQuality_Rating() + SPACE_CHAR);
+        }
+        if(restaurant.getUserExp() > 0) {
+            query.append(",user_exp=" + restaurant.getUserExp() + SPACE_CHAR);
+        }
+        query.append("WHERE restraurant_name="+ restaurant.getName());
+        query.append(AND_CHAR+ "restraurant_location="+restaurant.getLocation());
+        query.append(AND_CHAR+ "user_email="+restaurant.getUser_email());
 
         try {
-            jdbcTemplate.update(query, new Object[]{restaurant.getUserReview()});
+            jdbcTemplate.update(query.toString(), new Object[]{restaurant});
             status.append("Success Restaurant updated");
         }catch(Exception exception){
             System.out.println(exception);
@@ -86,7 +103,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public String addNewReviewForRestaurant(Restaurants restaurant) {
         StringBuilder status = new StringBuilder();
 
-        String query = "UPDATE gimmeFive.restraurants SET user_review="+restaurant.getUserReview() +SPACE_CHAR+
+        String query = "UPDATE gimmeFive.restraurant SET user_review="+restaurant.getUserReview() +SPACE_CHAR+
                 " WHERE restraurant_name="+ restaurant.getName() +AND_CHAR+"restraurant_location="+restaurant.getLocation()+AND_CHAR+
                  "user_email="+ restaurant.getUser_email();
 
@@ -116,7 +133,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public List<Restaurants> getRestaurantsByLocation(String location) {
-        String query = "SELECT restraurant_name,restraurant_location from gimmeFive.restraurants " +
+        String query = "SELECT restraurant_name,restraurant_location from gimmeFive.restraurant " +
                 "WHERE restraurant_location="+location;
         //Pending is the logic for rating
         List<Restaurants> restaurantsList = jdbcTemplate.query(query,
@@ -126,17 +143,16 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public List<Restaurants> getRestaurantsByAttributes(Map attributeMap) {
-        String and = " AND ";
         String query = "SELECT restraurant_name,restraurant_location , SUM(VALUE_FOR_MONEY)/COUNT(restraurant_name) as cost ," +
-                "SUM(FOOD)/COUNT(restraurant_name) as taste" +
-                "SUM(SERVICE)/COUNT(restraurant_name) as courtesy"+
-                "SUM(AMBIENCE)/COUNT(restraurant_name) as environment"+
-                "SUM(QUALITY)/COUNT(restraurant_name) as hygiene"+
-                " from gimmeFive.restraurants "+
-                "WHERE cost >= "+attributeMap.get("valueforMoney")+and+
-                "taste >=" + attributeMap.get("food")  + and +
-                "courtesy >="+attributeMap.get("service") + and +
-                "environment >="+attributeMap.get("ambience") + and +
+                "SUM(FOOD)/COUNT(restraurant_name) as taste" + SPACE_CHAR +
+                "SUM(SERVICE)/COUNT(restraurant_name) as courtesy"+ SPACE_CHAR +
+                "SUM(AMBIENCE)/COUNT(restraurant_name) as environment"+ SPACE_CHAR +
+                "SUM(QUALITY)/COUNT(restraurant_name) as hygiene"+ SPACE_CHAR +
+                " from gimmeFive.restraurant "+ SPACE_CHAR +
+                "WHERE cost >= "+attributeMap.get("valueforMoney")+AND_CHAR+
+                "taste >=" + attributeMap.get("food")  + AND_CHAR +
+                "courtesy >="+attributeMap.get("service") + AND_CHAR +
+                "environment >="+attributeMap.get("ambience") + AND_CHAR +
                 "hygiene >= "+ attributeMap.get("quality") ;
         List<Restaurants> restaurantsList = jdbcTemplate.query(query,
                 new BeanPropertyRowMapper<Restaurants>(Restaurants.class));
@@ -145,18 +161,17 @@ public class RestaurantDaoImpl implements RestaurantDao {
 
     @Override
     public List<Restaurants> getRestaurantsByAttriNLoc(String location, Map attributeMap) {
-        String and = " AND ";
         String query = "SELECT restraurant_name,restraurant_location , SUM(VALUE_FOR_MONEY)/COUNT(restraurant_name) as cost ," +
                 "SUM(FOOD)/COUNT(restraurant_name) as taste" +
                 "SUM(SERVICE)/COUNT(restraurant_name) as courtesy"+
                 "SUM(AMBIENCE)/COUNT(restraurant_name) as environment"+
                 "SUM(QUALITY)/COUNT(restraurant_name) as hygiene"+
-                " from gimmeFive.restraurants "+
-                "WHERE cost >= "+attributeMap.get("valueforMoney")+and+
-                "taste >=" + attributeMap.get("food")  + and +
-                "courtesy >="+attributeMap.get("service") + and +
-                "environment >="+attributeMap.get("ambience") + and +
-                "hygiene >= "+ attributeMap.get("quality")+ and +
+                " from gimmeFive.restraurant "+
+                "WHERE cost >= "+attributeMap.get("valueforMoney")+AND_CHAR+
+                "taste >=" + attributeMap.get("food")  + AND_CHAR +
+                "courtesy >="+attributeMap.get("service") + AND_CHAR +
+                "environment >="+attributeMap.get("ambience") + AND_CHAR +
+                "hygiene >= "+ attributeMap.get("quality")+ AND_CHAR +
                 "restraurant_location="+location.toLowerCase();
                 ;
         List<Restaurants> restaurantsList = jdbcTemplate.query(query,
@@ -168,7 +183,7 @@ public class RestaurantDaoImpl implements RestaurantDao {
     public String updateRatingAndReview(Restaurants restaurant) {
         StringBuilder status = new StringBuilder();
 
-        String query = "UPDATE gimmeFive.restraurants SET value_for_money="+restaurant.getValueForMoney_Rating() +SPACE_CHAR+
+        String query = "UPDATE gimmeFive.restraurant SET value_for_money="+restaurant.getValueForMoney_Rating() +SPACE_CHAR+
                 "food="+restaurant.getFood_Rating()+SPACE_CHAR+
                 "service="+restaurant.getService_Rating()+SPACE_CHAR+
                 "ambience="+restaurant.getAmbience_Rating()+SPACE_CHAR+
@@ -184,5 +199,23 @@ public class RestaurantDaoImpl implements RestaurantDao {
             status.append("Failed to update restaurant");
         }
         return status.toString();
+    }
+
+    @Override
+    public Restaurants getRestraurantDetails(String restruarant_name, String location) {
+        Restaurants restaurant  = new Restaurants(restruarant_name,location);
+        String query = "Select restraurant_name,restraurant_location,restraunrant_speciality," +
+                        "SUM(VALUE_FOR_MONEY)/COUNT(restraurant_name) as cost ," +
+                        "SUM(FOOD)/COUNT(restraurant_name) as taste" +
+                        "SUM(SERVICE)/COUNT(restraurant_name) as courtesy"+
+                        "SUM(AMBIENCE)/COUNT(restraurant_name) as environment"+
+                        "SUM(QUALITY)/COUNT(restraurant_name) as hygiene"+
+                        "SUM(USER_EXP)/COUNT(restraurant_name) as userex"+ SPACE_CHAR +
+                        "FROM gimmeFive.restraurant" + SPACE_CHAR+
+                        "WHERE restraurant_name="+restruarant_name ;
+        if(!location.isEmpty()) {
+            query = query + AND_CHAR + "restraurant_location=" + location;
+        }
+        return restaurant;
     }
 }

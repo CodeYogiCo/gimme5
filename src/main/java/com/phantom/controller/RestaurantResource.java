@@ -8,6 +8,7 @@
 
     import javax.ws.rs.DefaultValue;
     import javax.ws.rs.QueryParam;
+    import javax.ws.rs.core.Response;
     import java.util.HashMap;
     import java.util.List;
     import java.util.Map;
@@ -52,8 +53,8 @@
 
         }
 
-        @RequestMapping(value="/restaurants{valueforMoney},{food},{service},{ambience},{quality}" ,method= RequestMethod.GET)
-        public List<Restaurants> getRestraurantsByAttributes(@DefaultValue("0") @QueryParam(value="valueforMoney") String valueForMoney,
+        @RequestMapping(value="/restaurants{valueformoney},{food},{service},{ambience},{quality}" ,method= RequestMethod.GET)
+        public List<Restaurants> getRestraurantsByAttributes(@DefaultValue("0") @QueryParam(value="valueformoney") String valueForMoney,
                                                              @DefaultValue("0") @QueryParam("food") String food,
                                                              @DefaultValue("0") @QueryParam("service")String service,
                                                              @DefaultValue("0") @QueryParam("ambience")String ambience,
@@ -65,6 +66,29 @@
             gimmeFiveRating.put("ambience", Float.parseFloat(ambience));
             gimmeFiveRating.put("quality", Float.parseFloat(quality));
             return restaurantDao.getRestaurantsByAttributes(gimmeFiveRating);
+        }
+
+        @RequestMapping(value="/restaurants/restraurant/{restraurant_name},{user},{location},{valueformoney},{food},{service},{ambience},{quality},{rating}" , method = RequestMethod.GET)
+        public String updateRestraurantRating(@PathVariable("restraurant_name")String restraurant_name ,
+                                                @QueryParam("user")String user_email,
+                                                @QueryParam("location")String location,
+                                                @DefaultValue("0") @QueryParam(value="valueformoney") String valueformoney,
+                                                @DefaultValue("0") @QueryParam("food") String food,
+                                                @DefaultValue("0") @QueryParam("service")String service,
+                                                @DefaultValue("0") @QueryParam("ambience")String ambience,
+                                                @DefaultValue("0") @QueryParam("quality")String quality,
+                                                @DefaultValue("0") @QueryParam("rating") String rating
+                                               ){
+            Restaurants restaurant = new Restaurants(restraurant_name,location);
+            restaurant.setUser_email(user_email);
+            restaurant.setValueForMoney_Rating(Float.parseFloat(valueformoney));
+            restaurant.setFood_Rating(Float.parseFloat(food));
+            restaurant.setService_Rating(Float.parseFloat(service));
+            restaurant.setAmbience_Rating(Float.parseFloat(ambience));
+            restaurant.setQuality_Rating(Float.parseFloat(quality));
+            restaurant.setUserExp(Float.parseFloat(rating));
+
+            return restaurantDao.updateRestaurantRatings(restaurant);
         }
 
 

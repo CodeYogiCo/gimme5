@@ -28,6 +28,8 @@ public interface RestaurantDao {
 
     String updateRatingAndReview(Restaurants restaurants);
 
+    Restaurants getRestraurantDetails(String restruarant_name, String location);
+
 
 
 
