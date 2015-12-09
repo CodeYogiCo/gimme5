@@ -31,6 +31,8 @@ public class Restaurants {
 
     private Date postedOn;
 
+    public Restaurants(){}
+
     public Restaurants(String name, String location) {
         this.name = name;
         this.location = location;

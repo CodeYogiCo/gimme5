@@ -20,6 +20,7 @@ public class AppConfig {
 //    public MemcachedClient getMemcachedClient(){
 //        MemcachedClient mc= null;
 //        try{
+ //   1094574019927-lo0d0aphr5fqssnt7qk5i8845ils7pn2.apps.googleusercontent.com
 //            mc= new MemcachedClient(AddrUtil.getAddresses("127.0.0.1:11211"));
 //        }
 //        catch (IOException e){
