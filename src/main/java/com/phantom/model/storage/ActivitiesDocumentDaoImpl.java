@@ -95,42 +95,71 @@ public class ActivitiesDocumentDaoImpl implements ActivitiesDocumentDao {
         return activitiesDocumentList;
     }
 
+
     @Override
-    public List<ActivitiesDocument> getDocumentBasedOnSearch(ActivitiesDocument activitiesDocument) {
-        String category_name  = activitiesDocument.getCategory_name();
-        String entry_name = activitiesDocument.getEntry_name();
-        String location_name = activitiesDocument.getLocation_name();
-        String speciality_name = activitiesDocument.getSpeciality_name();
+    public List<String> fetchLocations(String location_name) {
         SolrQuery query = new SolrQuery();
-        query.setQuery("entry_name:"+entry_name);
-        query.setFilterQueries("category_name="+category_name,"location_name="+location_name,"speciality_name="+speciality_name);
+        query.setQuery("location_name:"+location_name.toLowerCase());
+        query.setParam("wt", "json");
+
+        System.out.println("the query is ++++++++++++ "+query);
         QueryResponse response = null;
         try {
             response = solr.query(query);
         } catch (SolrServerException e) {
             e.printStackTrace();
         }
-        List<ActivitiesDocument> activitiesDocumentList  = new ArrayList<>();
+        List<String> activitiesDocumentList  = new ArrayList<>();
         SolrDocumentList docList = (SolrDocumentList) response.getResults();
 
 
         for (int i = 0; i < docList.size(); i++) {
 
-            ActivitiesDocument newactivitiesDocument = new ActivitiesDocument();
-
-            newactivitiesDocument.setId(docList.get(i).getFieldValue("id").toString());
-
-            newactivitiesDocument.setEntry_name(docList.get(i).getFieldValue("entry_name").toString());
-
-            newactivitiesDocument.setCategory_name(docList.get(i).getFieldValue("category_name").toString());
-
-            newactivitiesDocument.setLocation_name(docList.get(i).getFieldValue("location_name").toString());
-
-            newactivitiesDocument.setSpeciality_name(docList.get(i).getFieldValue("speciality_name").toString());
-
-            activitiesDocumentList.add(newactivitiesDocument);
+            activitiesDocumentList.add(docList.get(i).getFieldValue("location_name").toString());
 
         }
         return activitiesDocumentList;
     }
+
+//    @Override
+//    public List<ActivitiesDocument> getDocumentBasedOnSearch(ActivitiesDocument activitiesDocument) {
+//        String category_name  = activitiesDocument.getCategory_name();
+//        String entry_name = activitiesDocument.getEntry_name();
+//        String location_name = activitiesDocument.getLocation_name();
+//        String speciality_name = activitiesDocument.getSpeciality_name();
+//        SolrQuery query = new SolrQuery();
+//        query.setQuery("entry_name:"+entry_name);
+//        query.setFilterQueries("category_name="+category_name,"location_name="+location_name,"speciality_name="+speciality_name);
+//        QueryResponse response = null;
+//        try {
+//            response = solr.query(query);
+//        } catch (SolrServerException e) {
+//            e.printStackTrace();
+//        }
+//        List<ActivitiesDocument> activitiesDocumentList  = new ArrayList<>();
+//        SolrDocumentList docList = (SolrDocumentList) response.getResults();
+//
+//
+//        for (int i = 0; i < docList.size(); i++) {
+//
+//            ActivitiesDocument newactivitiesDocument = new ActivitiesDocument();
+//
+//            newactivitiesDocument.setId(docList.get(i).getFieldValue("id").toString());
+//
+//            newactivitiesDocument.setEntry_name(docList.get(i).getFieldValue("entry_name").toString());
+//
+//            newactivitiesDocument.setCategory_name(docList.get(i).getFieldValue("category_name").toString());
+//
+//            newactivitiesDocument.setLocation_name(docList.get(i).getFieldValue("location_name").toString());
+//
+//            newactivitiesDocument.setSpeciality_name(docList.get(i).getFieldValue("speciality_name").toString());
+//
+//            activitiesDocumentList.add(newactivitiesDocument);
+//
+//        }
+//        return activitiesDocumentList;
+//    }
+
+
+
 }

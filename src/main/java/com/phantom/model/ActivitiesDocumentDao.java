@@ -13,6 +13,7 @@ public interface ActivitiesDocumentDao {
 
     public List<ActivitiesDocument> fetchActivitiesBasedOnCategory(String category_name);
 
-    public List<ActivitiesDocument> getDocumentBasedOnSearch(ActivitiesDocument activitiesDocument);
+    public List<String> fetchLocations(String location_name);
+
 
 }

@@ -7,43 +7,44 @@ import java.util.Date;
  */
 public class Restaurants {
 
-    private String name;
+    private String restraurant_name;
 
     private String user_email;
 
-    private String location;
+    private String restraurant_location;
 
-    private String speciality;
+    private String restraurant_speciality;
 
-    private Float valueForMoney_Rating;
+    private Float value_for_money;
 
-    private Float food_Rating;
+    private Float food;
 
-    private Float service_Rating;
+    private Float service;
 
-    private Float ambience_Rating;
+    private Float ambience;
 
-    private Float quality_Rating;
+    private Float quality;
 
-    private Float userExp;
+    private Float user_exp;
 
-    private String userReview;
+    private String user_review;
 
     private Date postedOn;
 
     public Restaurants(){}
 
-    public Restaurants(String name, String location) {
-        this.name = name;
-        this.location = location;
+
+    public Restaurants(String restraurant_name, String restraurant_location) {
+        this.restraurant_name = restraurant_name;
+        this.restraurant_location = restraurant_location;
     }
 
-    public String getName() {
-        return name;
+    public String getRestraurant_name() {
+        return restraurant_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRestraurant_name(String restraurant_name) {
+        this.restraurant_name = restraurant_name;
     }
 
     public String getUser_email() {
@@ -54,96 +55,100 @@ public class Restaurants {
         this.user_email = user_email;
     }
 
-    public String getLocation() {
-        return location;
+    public String getRestraurant_location() {
+        return restraurant_location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setRestraurant_location(String restraurant_location) {
+        this.restraurant_location = restraurant_location;
     }
 
-    public String getSpeciality() {
-        return speciality;
+    public String getRestraurant_speciality() {
+        return restraurant_speciality;
     }
 
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
+    public void setRestraurant_speciality(String restraurant_speciality) {
+        this.restraurant_speciality = restraurant_speciality;
     }
 
-    public Float getValueForMoney_Rating() {
-        return valueForMoney_Rating;
+    public Float getValue_for_money() {
+        return value_for_money;
     }
 
-    public void setValueForMoney_Rating(Float valueForMoney_Rating) {
-        this.valueForMoney_Rating = valueForMoney_Rating;
+    public void setValue_for_money(Float value_for_money) {
+        this.value_for_money = value_for_money;
     }
 
-    public Float getFood_Rating() {
-        return food_Rating;
+    public Float getFood() {
+        return food;
     }
 
-    public void setFood_Rating(Float food_Rating) {
-        this.food_Rating = food_Rating;
+    public void setFood(Float food) {
+        this.food = food;
     }
 
-    public Float getService_Rating() {
-        return service_Rating;
+    public Float getService() {
+        return service;
     }
 
-    public void setService_Rating(Float service_Rating) {
-        this.service_Rating = service_Rating;
+    public void setService(Float service) {
+        this.service = service;
     }
 
-    public Float getAmbience_Rating() {
-        return ambience_Rating;
+    public Float getAmbience() {
+        return ambience;
     }
 
-    public void setAmbience_Rating(Float ambience_Rating) {
-        this.ambience_Rating = ambience_Rating;
+    public void setAmbience(Float ambience) {
+        this.ambience = ambience;
     }
 
-    public Float getQuality_Rating() {
-        return quality_Rating;
+    public Float getQuality() {
+        return quality;
     }
 
-    public void setQuality_Rating(Float quality_Rating) {
-        this.quality_Rating = quality_Rating;
+    public void setQuality(Float quality) {
+        this.quality = quality;
     }
 
-    public Float getUserExp() {
-        return userExp;
+    public Float getUser_exp() {
+        return user_exp;
     }
 
-    public void setUserExp(Float userExp) {
-        this.userExp = userExp;
+    public void setUser_exp(Float user_exp) {
+        this.user_exp = user_exp;
     }
 
-    public String getUserReview() {
-        return userReview;
+    public String getUser_review() {
+        return user_review;
     }
 
-    public void setUserReview(String userReview) {
-        this.userReview = userReview;
+    public void setUser_review(String user_review) {
+        this.user_review = user_review;
     }
 
     public Date getPostedOn() {
         return postedOn;
     }
 
+    public void setPostedOn(Date postedOn) {
+        this.postedOn = postedOn;
+    }
+
     @Override
     public String toString() {
         return "Restaurants{" +
-                "name='" + name + '\'' +
+                "restraurant_name='" + restraurant_name + '\'' +
                 ", user_email='" + user_email + '\'' +
-                ", location='" + location + '\'' +
-                ", speciality='" + speciality + '\'' +
-                ", valueForMoney_Rating=" + valueForMoney_Rating +
-                ", food_Rating=" + food_Rating +
-                ", service_Rating=" + service_Rating +
-                ", ambience_Rating=" + ambience_Rating +
-                ", quality_Rating=" + quality_Rating +
-                ", userExp=" + userExp +
-                ", userReview='" + userReview + '\'' +
+                ", restraurant_location='" + restraurant_location + '\'' +
+                ", restraurant_speciality='" + restraurant_speciality + '\'' +
+                ", value_for_money=" + value_for_money +
+                ", food=" + food +
+                ", service=" + service +
+                ", ambience=" + ambience +
+                ", quality=" + quality +
+                ", user_exp=" + user_exp +
+                ", user_review='" + user_review + '\'' +
                 ", postedOn=" + postedOn +
                 '}';
     }

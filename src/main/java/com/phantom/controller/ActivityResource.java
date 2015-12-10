@@ -22,13 +22,20 @@ public class ActivityResource {
     private ActivitiesDocumentDao activitiesDocumentDao;
 
 
-    @RequestMapping(value="/search" ,method= RequestMethod.GET, produces={"application/json"})
-    public List<ActivitiesDocument> searchReasults(@RequestParam(value = "category",required = false) String category) {
+    @RequestMapping(value="/search{category}" ,method= RequestMethod.GET, produces={"application/json"})
+    public List<ActivitiesDocument> searchReasults(@QueryParam("category") String category) {
         if(null==category){
             return activitiesDocumentDao.fetchAllDocuments();
         }else{
             return activitiesDocumentDao.fetchActivitiesBasedOnCategory(category);
         }
     }
+
+    @RequestMapping(value="/search{location}" ,method= RequestMethod.GET, produces={"application/json"})
+    public List<String> getLocations(@QueryParam("location")String location){
+        return activitiesDocumentDao.fetchLocations(location);
+    }
+
+
 
 }

@@ -40,14 +40,8 @@
 
             }
 
-        @RequestMapping(value="/restraurants",method=RequestMethod.GET,headers="content-type=application/vnd.v0+json"
-                ,produces = "application/json")
+        @RequestMapping(value="/restraurants",method=RequestMethod.GET ,produces = "application/json")
         public List<Restaurants> getAllRestaurants(@RequestParam(value="location",required= false) String location)
-//                                                   @DefaultValue("0") @RequestParam(value="valueForMoney") String valueForMoney,
-//                                                   @DefaultValue("0") @RequestParam(value="food") String food,
-//                                                   @DefaultValue("0") @RequestParam(value="service")String service,
-//                                                   @DefaultValue("0") @RequestParam(value="ambience") String ambience,
-//                                                   @DefaultValue("0") @RequestParam(value="quality")String quality)
         {
             List<Restaurants> listofRestaurants= new ArrayList<Restaurants>();
             if(null==location)
@@ -58,28 +52,31 @@
 
         }
 
-//        @RequestMapping(value="/restaurants{location}" ,method= RequestMethod.GET)
-//        public List<Restaurants> getReestraurantsByLocation(@DefaultValue("") @QueryParam(value="location") String location){
-//            return restaurantDao.getRestaurantsByLocation(location);
-//
-//        }
+        @RequestMapping(value="/restraurants/{retraurant}{location}",method=RequestMethod.GET ,produces = "application/json")
+        public List<Restaurants> getRestaurantDetails(@PathVariable("retraurant")String restraurant_name,
+                                                      @DefaultValue("")  @QueryParam("location")String location){
+            return restaurantDao.getRestraurantDetails(restraurant_name, location);
+        }
 
-        @RequestMapping(value="/restaurants{valueformoney},{food},{service},{ambience},{quality}" ,method= RequestMethod.GET)
-        public List<Restaurants> getRestraurantsByAttributes(@DefaultValue("0") @QueryParam(value="valueformoney") String valueForMoney,
+
+
+        @RequestMapping(value="/restaurants{location}{valueformoney},{food},{service},{ambience},{quality}" ,method= RequestMethod.GET)
+        public List<Restaurants> getRestraurantsByAttributes(@DefaultValue("") @QueryParam(value="location") String location,
+                                                             @DefaultValue("0") @QueryParam(value="valueformoney") String valueForMoney,
                                                              @DefaultValue("0") @QueryParam("food") String food,
                                                              @DefaultValue("0") @QueryParam("service")String service,
                                                              @DefaultValue("0") @QueryParam("ambience")String ambience,
                                                              @DefaultValue("0") @QueryParam("quality")String quality){
             Map<String,Float>  gimmeFiveRating = new HashMap<>();
-            gimmeFiveRating.put("valueForMoney", Float.parseFloat(valueForMoney));
+            gimmeFiveRating.put("valueformoney", Float.parseFloat(valueForMoney));
             gimmeFiveRating.put("food", Float.parseFloat(food));
             gimmeFiveRating.put("service", Float.parseFloat(service));
             gimmeFiveRating.put("ambience", Float.parseFloat(ambience));
             gimmeFiveRating.put("quality", Float.parseFloat(quality));
-            return restaurantDao.getRestaurantsByAttributes(gimmeFiveRating);
+            return restaurantDao.getRestaurantsByAttriNLoc(location,gimmeFiveRating);
         }
 
-        @RequestMapping(value="/restaurants/restraurant/{restraurant_name},{user},{location},{valueformoney},{food},{service},{ambience},{quality},{rating}" , method = RequestMethod.GET)
+        @RequestMapping(value="/restaurants/restraurant/{restraurant_name},{user},{location},{valueformoney},{food},{service},{ambience},{quality},{rating}" , method = RequestMethod.PUT)
         public String updateRestraurantRating(@PathVariable("restraurant_name")String restraurant_name ,
                                                 @QueryParam("user")String user_email,
                                                 @QueryParam("location")String location,
@@ -92,15 +89,19 @@
                                                ){
             Restaurants restaurant = new Restaurants(restraurant_name,location);
             restaurant.setUser_email(user_email);
-            restaurant.setValueForMoney_Rating(Float.parseFloat(valueformoney));
-            restaurant.setFood_Rating(Float.parseFloat(food));
-            restaurant.setService_Rating(Float.parseFloat(service));
-            restaurant.setAmbience_Rating(Float.parseFloat(ambience));
-            restaurant.setQuality_Rating(Float.parseFloat(quality));
-            restaurant.setUserExp(Float.parseFloat(rating));
+            restaurant.setValue_for_money(Float.parseFloat(valueformoney));
+            restaurant.setFood(Float.parseFloat(food));
+            restaurant.setService(Float.parseFloat(service));
+            restaurant.setAmbience(Float.parseFloat(ambience));
+            restaurant.setQuality(Float.parseFloat(quality));
+            restaurant.setUser_exp(Float.parseFloat(rating));
 
             return restaurantDao.updateRestaurantRatings(restaurant);
         }
+
+
+
+
 
 
 

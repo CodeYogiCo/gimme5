@@ -1,0 +1,18 @@
+<dataConfig>
+<dataSource type="JdbcDataSource" 
+            driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/gimmeFive" 
+            user="root" 
+            password="admin"/>
+<document name="activity">
+  <entity name="activities"  
+    query="select id,category,entry,location, speciality from activities;">
+     <field column="id" name="id"/>
+     <field column="category" name="category_name"/>
+     <field column="entry" name="entry_name"/>
+     <field column="location" name="location_name"/>
+     <field column="speciality" name="speciality_name"/>
+  </entity>
+</document>
+</dataConfig>
+

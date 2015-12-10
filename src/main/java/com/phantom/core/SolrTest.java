@@ -27,7 +27,7 @@ public class SolrTest {
         String columns = "*";
         String type = "&wt=json&indent=true";
 
-        SolrServer solr = new HttpSolrServer("http://localhost:8983/solr/gimme5Collection"); //create solr connection
+        SolrServer solr = new HttpSolrServer("http://localhost:8983/solr/gimme5collection"); //create solr connection
 
         //----------------------------------------------------------
         //create query
@@ -35,9 +35,9 @@ public class SolrTest {
 
         SolrQuery query = new SolrQuery();
         query.setQuery("entry_name:robert bosch");
-        query.addFilterQuery("category_name=company");
-        query.addField("location_name=kormangala");
-    //    query.setFields("location_name");
+        query.addFilterQuery("category_name:company");
+        query.addField("location_name:kormangala");
+        query.setFields("location_name");
       //  query.setHighlight(true);
 
 
@@ -54,19 +54,18 @@ public class SolrTest {
         int docCount = docList.size();
 
         //document fields
-        SolrDocument doc = null;
+
         for (int i = 0; i < docCount; i++) {
-            doc = docList.get(i);
             System.out.println("++++++++++++++++++++++++++++++++++++++++++");
             ActivitiesDocument activitiesDocument = new ActivitiesDocument();
 
-            activitiesDocument.setId( doc.getFieldValue("id").toString());
+            activitiesDocument.setId(docList.get(i).getFieldValue("id").toString());
 
-            activitiesDocument.setEntry_name((doc.getFieldValue("entry_name")).toString());
+            activitiesDocument.setEntry_name((docList.get(i).getFieldValue("entry_name")).toString());
 
-            activitiesDocument.setCategory_name(doc.getFieldValue("category_name").toString());
+            activitiesDocument.setCategory_name(docList.get(i).getFieldValue("category_name").toString());
 
-            activitiesDocument.setLocation_name(doc.getFieldValue("location_name").toString());
+            activitiesDocument.setLocation_name(docList.get(i).getFieldValue("location_name").toString());
 
             activitiesDocumentList.add(activitiesDocument);
 

@@ -22,15 +22,11 @@ public interface RestaurantDao {
 
     List<Restaurants> getRestaurantsByLocation(String location);
 
-    List<Restaurants> getRestaurantsByAttributes(Map attributeList);
-
     List<Restaurants> getRestaurantsByAttriNLoc(String Location ,Map attributeList);
 
     String updateRatingAndReview(Restaurants restaurants);
 
-    Restaurants getRestraurantDetails(String restruarant_name, String location);
-
-
+    List<Restaurants> getRestraurantDetails(String restruarant_name, String location);
 
 
 }
